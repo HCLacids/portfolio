@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>韩晨龙 · 前端开发工程师</title>
+<style>
+  :root{
+    --bg:#fbfbfd;
+    --surface:#ffffff;
+    --ink:#16161d;
+    --ink-2:#44444f;
+    --ink-3:#8a8a98;
+    --line:#ececf1;
+    --accent:#4f46e5;
+    --accent-soft:#eef0ff;
+    --accent-2:#ec4899;
+    --radius:16px;
+    --shadow:0 1px 2px rgba(16,16,29,.04),0 8px 24px rgba(16,16,29,.06);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* nav */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,251,253,.8);backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:700;font-size:18px;letter-spacing:.3px}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:28px;font-size:14px;color:var(--ink-2)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover{color:var(--accent)}
+  .status-pill{
+    display:inline-flex;align-items:center;gap:7px;
+    background:var(--accent-soft);color:var(--accent);
+    font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+
+  /* hero */
+  .hero{padding:96px 0 72px}
+  .hero h1{font-size:clamp(34px,6vw,56px);line-height:1.12;font-weight:700;letter-spacing:-1px}
+  .hero h1 .hl{color:var(--accent)}
+  .hero p.lead{margin-top:22px;font-size:18px;color:var(--ink-2);max-width:640px}
+  .hero .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px;font-size:14px;color:var(--ink-3)}
+  .hero .meta b{color:var(--ink-2);font-weight:600}
+  .cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 22px;border-radius:12px;font-size:15px;font-weight:600;
+    transition:transform .15s ease,box-shadow .2s ease;
+  }
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 6px 18px rgba(79,70,229,.3)}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{transform:translateY(-2px);border-color:#d9d9e3}
+
+  /* sections */
+  section{padding:64px 0}
+  .sec-head{margin-bottom:36px}
+  .sec-head .kicker{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:1px;text-transform:uppercase}
+  .sec-head h2{font-size:28px;font-weight:700;margin-top:8px;letter-spacing:-.5px}
+  .sec-head p{margin-top:10px;color:var(--ink-2);max-width:680px}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start}
+  .about-text p{color:var(--ink-2);margin-bottom:14px}
+  .about-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .about-card h3{font-size:15px;margin-bottom:14px}
+  .about-card ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--ink-2)}
+  .about-card li{display:flex;gap:10px;align-items:flex-start}
+  .about-card li::before{content:"";flex:0 0 7px;height:7px;margin-top:8px;border-radius:50%;background:var(--accent)}
+
+  /* skills */
+  .skill-groups{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .skill-group{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .skill-group h3{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .skill-group h3 .tag{font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:6px}
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{font-size:13px;color:var(--ink-2);background:#f4f4f8;border:1px solid var(--line);padding:7px 13px;border-radius:9px;transition:.2s}
+  .chip:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* projects */
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .proj{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+  .proj:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(16,16,29,.1)}
+  .proj .thumb{height:150px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;color:#fff;letter-spacing:1px;padding:0 16px;text-align:center}
+  .proj:nth-child(1) .thumb{background:linear-gradient(135deg,#6366f1,#8b5cf6)}
+  .proj:nth-child(2) .thumb{background:linear-gradient(135deg,#0ea5e9,#22d3ee)}
+  .proj:nth-child(3) .thumb{background:linear-gradient(135deg,#ec4899,#f43f5e)}
+  .proj .body{padding:18px}
+  .proj .body h3{font-size:16px}
+  .proj .body p{font-size:13px;color:var(--ink-2);margin-top:8px;min-height:72px}
+  .proj .body .tags{margin-top:12px;display:flex;gap:7px;flex-wrap:wrap}
+  .proj .body .tags span{font-size:11px;color:var(--ink-3);background:#f4f4f8;border-radius:6px;padding:3px 8px}
+  .proj .body .more{margin-top:14px;font-size:13px;font-weight:600;color:var(--accent)}
+
+  /* timeline */
+  .timeline{position:relative;padding-left:28px}
+  .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .tl-item{position:relative;padding-bottom:30px}
+  .tl-item::before{content:"";position:absolute;left:-25px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+  .tl-item .yr{font-size:13px;font-weight:700;color:var(--accent)}
+  .tl-item h3{font-size:16px;margin-top:4px}
+  .tl-item p{font-size:14px;color:var(--ink-2);margin-top:4px}
+
+  /* contact */
+  .contact{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;border-radius:24px;padding:48px;text-align:center}
+  .contact h2{font-size:28px;font-weight:700}
+  .contact p{margin-top:12px;opacity:.9;max-width:520px;margin-left:auto;margin-right:auto}
+  .contact .links{margin-top:26px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .contact .links a{background:rgba(255,255,255,.14);padding:11px 20px;border-radius:11px;font-size:14px;font-weight:600;transition:.2s}
+  .contact .links a:hover{background:rgba(255,255,255,.26)}
+
+  footer{padding:40px 0;text-align:center;color:var(--ink-3);font-size:13px}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    .about-grid,.skill-groups,.proj-grid{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .contact{padding:34px 22px}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="logo">韩<span>晨龙</span></div>
+    <nav class="nav-links">
+      <a href="#about">关于</a>
+      <a href="#skills">技能</a>
+      <a href="#projects">作品</a>
+      <a href="#exp">经历</a>
+      <a href="#contact">联系</a>
+    </nav>
+    <span class="status-pill"><span class="dot"></span>正在重建节奏 · 接活中</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>我是<span class="hl">韩晨龙</span><br/>做教育 AI 产品的<span class="hl">前端开发工程师</span></h1>
+    <p class="lead">三年前端经验,做过面向全球用户的教育 AI 产品、自动驾驶车载系统,也混过开源。擅长把复杂业务做成好用的界面,现在在补 AI 集成这条第二曲线。</p>
+    <div class="meta">
+      <span>📍 <b>北京</b></span>
+      <span>💼 <b>前端 / 全栈倾向</b></span>
+      <span>🛠️ <b>React · TypeScript · 小程序</b></span>
+      <span>🤖 <b>agent · RAG · MCP</b></span>
+    </div>
+    <div class="cta">
+      <a class="btn btn-primary" href="#projects">查看作品 →</a>
+      <a class="btn btn-ghost" href="#contact">一起聊聊</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">About</div>
+      <h2>关于我</h2>
+      <p>不绕弯子:我是一个处在职业空窗期、但没打算躺平的前端。比起"写页面",我更喜欢"把一个东西做出来给人用"。</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>前端底子是在飞书文档(Bitable)实习时打下的——在一个复杂度很高的表格单品里做字段功能,第一次体会到"改一个公共组件要想清全部影响面"这件事有多重要。</p>
+        <p>之后在图森未来做车载软件前端,碰了 Three.js / Shader、前端 CI、Node 自动化;在 Classup(原猿辅导)做面向全球的教育 AI 产品,从 C 端互动教学游戏、LiveKit 实时音视频,到 B 端管理系统和监控体系都扛过。</p>
+        <p>现在处在职业空窗期,但没打算停。这个站点就是用 AI 辅助 + 我自己的前端手艺搓出来的第一个练手作品。接下来想认真做点自己的小产品,也接能发挥经验的外包和合作。</p>
+      </div>
+      <div class="about-card reveal">
+        <h3>现在的状态</h3>
+        <ul>
+          <li>每天固定节奏:上午做产品 / 学 AI 集成</li>
+          <li>每周至少一次线下出门(北京 meetup)</li>
+          <li>每天一条产出:内容 or 代码</li>
+          <li>开放接活:MVP / 小程序 / 可视化 / 合作</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Skills</div>
+      <h2>我能做什么</h2>
+      <p>前端是主场,可视化 / 工程化是老本行,AI 集成是正在长出来的第二曲线。</p>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-group reveal">
+        <h3>前端框架 <span class="tag">主场</span></h3>
+        <div class="chips">
+          <span class="chip">React</span><span class="chip">React Hooks</span><span class="chip">TypeScript</span>
+          <span class="chip">Taro 小程序</span><span class="chip">Flutter 跨端</span><span class="chip">Vite</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h3>工程化 / 性能 <span class="tag">老本行</span></h3>
+        <div class="chips">
+          <span class="chip">Webpack</span><span class="chip">前端 CI</span><span class="chip">产物体积监控</span>
+          <span class="chip">JSBridge</span><span class="chip">页面队列管理</span><span class="chip">Docker 部署</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h3>可视化 / 3D <span class="tag">特长</span></h3>
+        <div class="chips">
+          <span class="chip">Three.js</span><span class="chip">Shader</span><span class="chip">ECharts</span>
+          <span class="chip">高精地图编辑</span><span class="chip">LiveKit 实时音视频</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h3>AI / 全栈 <span class="tag">新长出来的</span></h3>
+        <div class="chips">
+          <span class="chip">Node.js</span><span class="chip">LLM agent</span><span class="chip">提示词 / 上下文工程</span>
+          <span class="chip">RAG</span><span class="chip">MCP</span><span class="chip">云原生 / k8s</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Projects</div>
+      <h2>作品</h2>
+      <p>三个有代表性的项目,覆盖 C 端 AI、可视化 / 3D 和开源贡献。点开可链到 demo / 源码。</p>
+    </div>
+    <div class="proj-grid">
+      <div class="proj reveal">
+        <div class="thumb">Classup<br/>教学游戏</div>
+        <div class="body">
+          <h3>AI 互动教学游戏</h3>
+          <p>基于 Web 的互动式教学游戏,接入 LiveKit 实现轻量级实时音视频通话与互动教学;制定统一接入规范并封装 livekitService。</p>
+          <div class="tags"><span>React</span><span>LiveKit</span><span>实时音视频</span><span>C 端</span></div>
+          <div class="more">查看详情 →</div>
+        </div>
+      </div>
+      <div class="proj reveal">
+        <div class="thumb">图森未来<br/>地图平台</div>
+        <div class="body">
+          <h3>车载地图编辑平台</h3>
+          <p>高精地图编辑系统的迭代开发,用 Three.js / Shader 扩展曲线能力,搭 Node 自动化与前端 CI,做跨屏协同查看。</p>
+          <div class="tags"><span>Three.js</span><span>Node</span><span>CI</span><span>可视化</span></div>
+          <div class="more">查看详情 →</div>
+        </div>
+      </div>
+      <div class="proj reveal">
+        <div class="thumb">Apache<br/>ECharts</div>
+        <div class="body">
+          <h3>开源贡献 · 关系图</h3>
+          <p>在开源点亮计划中实现关系图节点的自指边,用三次贝塞尔曲线计算坐标,处理多边渲染。已顺利结项。</p>
+          <div class="tags"><span>开源</span><span>ECharts</span><span>算法</span></div>
+          <div class="more">查看详情 →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="exp" style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Experience</div>
+      <h2>经历</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="yr">2024.04 – 2026.05</div>
+        <h3>Classup(原猿辅导) · 前端开发工程师(北京)</h3>
+        <p>面向全球的教育 AI 产品。C 端互动教学游戏 + LiveKit 实时音视频、B 端管理系统的开发与维护,以及基于打点和日志平台的网络质量监控体系。</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="yr">2023.02 – 2024.03</div>
+        <h3>图森未来 · 前端开发工程师 OSG(北京)</h3>
+        <p>车载软件前端。高精地图编辑平台迭代、Three.js / Shader 曲线扩展、Node 自动化与前端 CI 构建、跨屏协同。</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="yr">2022.04 – 2022.10</div>
+        <h3>字节跳动 飞书文档 · 前端实习(武汉)</h3>
+        <p>Bitable 关联字段支持筛选等核心功能,处理大量 EdgeCase(关联表删除 / 无权限 / 字段类型变化等)与移动端适配。</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="yr">2019.09 – 2023.06</div>
+        <h3>华中师范大学 · 信息管理与信息系统(本科)</h3>
+        <p>武汉。在校加入木犀互联网团队并任前端组组长,参与产品前端开发与团队分享。</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="yr">现在</div>
+        <h3>职业空窗 · 重建节奏中</h3>
+        <p>学 AI 集成、做自己的小产品、接活。这个站点就是起点。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact reveal">
+      <h2>一起搞点东西?</h2>
+      <p>MVP 原型、小程序、可视化 / 3D,或者只是想交流前端 + AI 怎么玩,都欢迎。北京的话,也可以线下喝杯咖啡。</p>
+      <div class="links">
+        <a href="mailto:1246311560@qq.com">Email</a>
+        <a href="#">微信 hcl_acids</a>
+        <a href="https://github.com/HCLacids">GitHub</a>
+        <a href="https://github.com/HCLacids">个人站</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 韩晨龙 · 用 AI 辅助 + 前端手艺搓出来的第一个练手作品</div>
+</footer>
+
+<script>
+  // 滚动渐入
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // 导航高亮
+  const secs=[...document.querySelectorAll('section[id]')];
+  const navMap={};
+  document.querySelectorAll('.nav-links a').forEach(a=>navMap[a.getAttribute('href').slice(1)]=a);
+  const navIo=new IntersectionObserver((es)=>{
+    es.forEach(e=>{
+      const a=navMap[e.target.id];
+      if(!a)return;
+      if(e.isIntersecting){
+        document.querySelectorAll('.nav-links a').forEach(x=>x.style.color='');
+        a.style.color='var(--accent)';
+      }
+    })
+  },{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>navIo.observe(s));
+</script>
+</body>
+</html>
